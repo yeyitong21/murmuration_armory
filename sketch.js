@@ -1,12 +1,12 @@
 let font, pg;
-let textInput, densitySlider, offsetSlider, fontSizeSlider, micRangeSlider, murmSlider;
-let refreshButton, micCheckbox, flockCheckbox, shapeCheckbox, transparentCheckbox;
 let currentTxt = "murmuration";
 let fontSize = 100;
 let focalX, focalY;
-let mic, micStarted = false, smoothedVol = 0;
 let particles = [];
+let animating = false;
 
+const DENSITY    = 20000;
+const OFFSET     = 100;
 
 const T_MAX_SPEED     = 1.4;
 const T_MAX_FORCE     = 0.045;
@@ -47,95 +47,18 @@ function setup() {
   globalTarget    = random(360);
   globalTurnSpeed = random(0.3, 0.8);
 
-  textInput = createElement('textarea');
-  textInput.position(20, 20);
-  textInput.size(180, 72);
-  textInput.value(currentTxt);
-  textInput.elt.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      let el  = textInput.elt;
-      let s   = el.selectionStart;
-      let val = el.value;
-      el.value = val.slice(0, s) + '\n' + val.slice(el.selectionEnd);
-      el.selectionStart = el.selectionEnd = s + 1;
-      currentTxt = el.value;
-      rebuildParticles();
-    }
-  });
-  textInput.input(() => { currentTxt = textInput.value(); rebuildParticles(); });
-
-  // ── 控件位置整体下移，为 textarea 腾出空间（原 y+34 → y+108） ──
-  densitySlider = createSlider(2000, 50000, 20000, 500);
-  densitySlider.position(20, 106);
-  densitySlider.size(180);
-  densitySlider.input(() => { rebuildParticles(); });
-
-  offsetSlider = createSlider(0, 700, 100, 1);
-  offsetSlider.position(20, 140);
-  offsetSlider.size(180);
-  offsetSlider.input(() => { rebuildParticles(); });
-
-  fontSizeSlider = createSlider(40, 600, 100, 1);
-  fontSizeSlider.position(20, 174);
-  fontSizeSlider.size(180);
-  fontSizeSlider.input(() => { fontSize = fontSizeSlider.value(); rebuildParticles(); });
-
-  micRangeSlider = createSlider(0, 5, 1, 0.01);
-  micRangeSlider.position(20, 208);
-  micRangeSlider.size(180);
-
-  murmSlider = createSlider(0, 100, 50, 1);
-  murmSlider.position(20, 242);
-  murmSlider.size(180);
-
-  refreshButton = createButton("refresh");
-  refreshButton.position(20, 276);
-  refreshButton.mousePressed(() => { rebuildParticles(); });
-
-  micCheckbox = createCheckbox("mic", false);
-  micCheckbox.position(95, 276);
-  micCheckbox.changed(() => { toggleMic(); updateLoopState(); });
-
-  flockCheckbox = createCheckbox("flock", false);
-  flockCheckbox.position(148, 276);
-  flockCheckbox.changed(() => {
-    if (!flockCheckbox.checked()) {
-      for (let p of particles) {
-        p.x = p.homeX; p.y = p.homeY;
-        p.vx = 0;      p.vy = 0;
-        p.angle = p.baseAngle;
-      }
-    }
-    updateLoopState();
-  });
-
-  shapeCheckbox = createCheckbox("shape", false);
-  shapeCheckbox.position(200, 276);
-  shapeCheckbox.changed(() => {
-    if (!shapeCheckbox.checked()) {
-      for (let p of particles) {
-        p.x = p.homeX; p.y = p.homeY;
-        p.vx = 0;      p.vy = 0;
-        p.angle = p.baseAngle;
-      }
-    }
-    updateLoopState();
-  });
-
-  transparentCheckbox = createCheckbox("transparent", false);
-  transparentCheckbox.position(20, 310);
-
   rebuildParticles();
   noLoop();
 }
 
-function updateLoopState() {
-  if (flockCheckbox.checked() || micCheckbox.checked() || shapeCheckbox.checked()) {
+function mousePressed() {
+  animating = !animating;
+  if (animating) {
     loop();
   } else {
     for (let p of particles) {
       p.x = p.homeX; p.y = p.homeY;
+      p.vx = 0;      p.vy = 0;
       p.angle = p.baseAngle;
     }
     redrawStatic();
@@ -143,22 +66,8 @@ function updateLoopState() {
   }
 }
 
-function toggleMic() {
-  if (micCheckbox.checked()) {
-    userStartAudio().then(() => {
-      if (!mic) mic = new p5.AudioIn();
-      mic.start(() => { micStarted = true; });
-    });
-  } else {
-    smoothedVol = 0;
-    if (mic && micStarted) { mic.stop(); micStarted = false; }
-  }
-}
-
 function redrawStatic() {
-  if (transparentCheckbox && transparentCheckbox.checked()) { clear(); }
-  else { background(0); }
-
+  background(0);
   strokeWeight(1);
   for (let p of particles) {
     let x2 = p.x + cos(p.angle) * p.len;
@@ -175,7 +84,7 @@ function renderTextToGraphics(lines, pg) {
   pg.textFont(font);
   pg.textSize(fontSize);
 
-  let lineHeight = fontSize * 1.25;   
+  let lineHeight = fontSize * 1.25;
   let maxW = 0;
   let lineH = 0;
   let lineBounds = [];
@@ -188,17 +97,14 @@ function renderTextToGraphics(lines, pg) {
 
   let totalH = lineH + lineHeight * (lines.length - 1);
 
-
   let blockX = width  / 2 - maxW  / 2;
-  let blockY = height / 2 - totalH / 2; 
-  
+  let blockY = height / 2 - totalH / 2;
 
   for (let i = 0; i < lines.length; i++) {
     let lx = width / 2 - lineBounds[i].w / 2;
-    let ly = blockY + lineH + lineHeight * i; 
+    let ly = blockY + lineH + lineHeight * i;
     pg.text(lines[i], lx, ly);
   }
-
 
   return {
     x: blockX,
@@ -212,7 +118,7 @@ function renderTextToGraphics(lines, pg) {
 function rebuildParticles() {
   particles = [];
   clear();
-  if (!transparentCheckbox || !transparentCheckbox.checked()) { background(0); }
+  background(0);
 
   let txt = currentTxt;
 
@@ -223,10 +129,8 @@ function rebuildParticles() {
   pg.pixelDensity(1);
   pg.clear();
 
-
   let bounds = renderTextToGraphics(lines, pg);
   pg.loadPixels();
-
 
   let tx = bounds.x;
   let ty = bounds.y;
@@ -240,14 +144,14 @@ function rebuildParticles() {
     focalY = random(ty + bounds.h * 0.05, ty + bounds.h * 0.95);
   }
 
-  let charCount   = max(txt.replace(/\n/g, '').length, 1); 
+  let charCount   = max(txt.replace(/\n/g, '').length, 1);
   let focalBias   = map(charCount, 1, 28, 0.18, 1.0, true);
   let coreSpread  = bounds.w * lerp(0.18, 0.10, focalBias);
   let midSpread   = bounds.w * lerp(0.42, 0.30, focalBias);
   let maxDist     = sqrt(bounds.w * bounds.w + bounds.h * bounds.h);
   let maxOffset   = bounds.h * 0.3;
-  let attempts    = densitySlider.value();
-  let offsetTight = offsetSlider.value() / 100;
+  let attempts    = DENSITY;
+  let offsetTight = OFFSET / 100;
   let lenMin      = 3;
   let lenMax      = 9;
   let coreChance  = lerp(0.12, 0.40, focalBias);
@@ -296,35 +200,20 @@ function rebuildParticles() {
   }
 
   pg.remove();
-  updateLoopState();
+
+  if (animating) {
+    loop();
+  } else {
+    redrawStatic();
+    noLoop();
+  }
 }
 
 function draw() {
-  if (transparentCheckbox && transparentCheckbox.checked()) { clear(); }
-  else { background(0); }
+  background(0);
 
-  let vol = 0;
-  if (micCheckbox.checked() && micStarted && mic) vol = mic.getLevel();
-  smoothedVol = vol > smoothedVol
-    ? lerp(smoothedVol, vol, 0.6)
-    : lerp(smoothedVol, vol, 0.08);
+  if (!animating) { redrawStatic(); return; }
 
-  let micRange    = micRangeSlider.value();
-  let micStrength = map(smoothedVol, 0, 0.15, 0, 1, true) * micRange;
-
-  let micMorph   = constrain(micStrength / max(micRange, 0.001), 0, 1);
-  let micMorphSq = micMorph * micMorph;
-
-  let murmStrength = pow(murmSlider.value() / 100, 1.4);
-
-  let isFlock = flockCheckbox.checked();
-  let isMic   = micCheckbox.checked();
-  let isShape = shapeCheckbox.checked();
-
-  if (!isFlock && !isShape && !isMic) { redrawStatic(); return; }
-
-
-  let micTurnBoost = 1 + micMorphSq * 3.0;
   if (frameCount % floor(random(200, 480)) === 0) {
     globalTarget    = random(360);
     globalTurnSpeed = random(0.25, 1.0);
@@ -332,14 +221,7 @@ function draw() {
   let gda = globalTarget - globalAngle;
   while (gda >  180) gda -= 360;
   while (gda < -180) gda += 360;
-
-  if (isShape) {
-    globalAngle += gda * 0.004 * globalTurnSpeed * micTurnBoost;
-  } else {
-    let turnStr = isFlock ? murmStrength : micMorphSq;
-    globalAngle += gda * 0.004 * globalTurnSpeed * max(turnStr, micMorphSq) * micTurnBoost;
-  }
-
+  globalAngle += gda * 0.004 * globalTurnSpeed;
 
   let grid = new Map();
   for (let i = 0; i < particles.length; i++) {
@@ -382,40 +264,32 @@ function draw() {
 
     let ax = 0, ay = 0;
 
-    let blend = isShape ? 1.0 : micMorphSq;
-
-    let CUR_MAX_SPEED = lerp(T_MAX_SPEED, S_MAX_SPEED, blend);
-    let CUR_MAX_FORCE = lerp(T_MAX_FORCE, S_MAX_FORCE, blend);
-    let CUR_ALI_W     = lerp(T_ALI_W,     S_ALI_W,     blend);
-    let CUR_COH_W     = lerp(T_COH_W,     S_COH_W,     blend);
-    let CUR_SEP_W     = lerp(T_SEP_W,     S_SEP_W,     blend);
-
-    let effMurm = isShape ? 1.0
-                : isFlock ? max(murmStrength, micMorphSq)
-                : micMorphSq;
+    let CUR_MAX_SPEED = S_MAX_SPEED;
+    let CUR_MAX_FORCE = S_MAX_FORCE;
+    let CUR_ALI_W     = S_ALI_W;
+    let CUR_COH_W     = S_COH_W;
+    let CUR_SEP_W     = S_SEP_W;
 
     if (sc > 0) {
       let sm = sqrt(svx*svx + svy*svy);
       if (sm > 0) { svx /= sm; svy /= sm; }
       let fx = svx*CUR_MAX_SPEED - p.vx, fy = svy*CUR_MAX_SPEED - p.vy;
       let fm = sqrt(fx*fx + fy*fy);
-      let cap = CUR_MAX_FORCE * CUR_SEP_W * effMurm;
+      let cap = CUR_MAX_FORCE * CUR_SEP_W;
       if (fm > cap) { fx = fx/fm*cap; fy = fy/fm*cap; }
       ax += fx; ay += fy;
     }
 
-    // ── Alignment ────────────────────────────────────────────────
     if (ac > 0) {
       avx /= ac; avy /= ac;
       let am = sqrt(avx*avx + avy*avy);
       if (am > 0) { avx = avx/am*CUR_MAX_SPEED; avy = avy/am*CUR_MAX_SPEED; }
       let fx = avx - p.vx, fy = avy - p.vy;
       let fm = sqrt(fx*fx + fy*fy);
-      let cap = CUR_MAX_FORCE * CUR_ALI_W * effMurm;
+      let cap = CUR_MAX_FORCE * CUR_ALI_W;
       if (fm > cap) { fx = fx/fm*cap; fy = fy/fm*cap; }
       ax += fx; ay += fy;
     }
-
 
     if (cc > 0) {
       let tx2 = cohX/cc - p.x, ty2 = cohY/cc - p.y;
@@ -424,7 +298,7 @@ function draw() {
         tx2 = tx2/cm*CUR_MAX_SPEED; ty2 = ty2/cm*CUR_MAX_SPEED;
         let fx = tx2 - p.vx, fy = ty2 - p.vy;
         let fm = sqrt(fx*fx + fy*fy);
-        let cap = CUR_MAX_FORCE * CUR_COH_W * effMurm;
+        let cap = CUR_MAX_FORCE * CUR_COH_W;
         if (fm > cap) { fx = fx/fm*cap; fy = fy/fm*cap; }
         ax += fx; ay += fy;
       }
@@ -433,53 +307,17 @@ function draw() {
     let hdx = p.homeX - p.x, hdy = p.homeY - p.y;
     let hd  = sqrt(hdx*hdx + hdy*hdy);
     if (hd > 0) {
-      let hfType;
-      if (hd < T_HOME_FREE_R) {
-        hfType = hd * T_HOME_K_SOFT;
-      } else {
-        let excess = hd - T_HOME_FREE_R;
-        hfType = min(T_HOME_FREE_R * T_HOME_K_SOFT + excess * T_HOME_K_HARD, T_HOME_HARD_CAP);
-      }
-      let hfShape = min(sqrt(hd) * S_HOME_K * 2.5, S_HOME_K_MAX);
-      let hf = lerp(hfType, hfShape, blend);
+      let hf = min(sqrt(hd) * S_HOME_K * 2.5, S_HOME_K_MAX);
       ax += hdx/hd * hf; ay += hdy/hd * hf;
     }
 
-    
-    if (isShape) {
-      let gfactor = 0.018 * (0.5 + p.nd * 1.0);
-      ax += cos(globalAngle) * gfactor;
-      ay += sin(globalAngle) * gfactor;
-    } else {
-      ax += cos(globalAngle) * T_GLOBAL_F * effMurm;
-      ay += sin(globalAngle) * T_GLOBAL_F * effMurm;
-
-      let wScale = effMurm;
-      let perpAngle = globalAngle + 90;
-      let proj1     = p.x * cos(globalAngle) + p.y * sin(globalAngle);
-      let wave1     = sin(proj1 * 0.014 - frameCount * 0.048 + p.seed * 0.4);
-      let wAmp1     = T_GLOBAL_F * 2.8 * wScale;
-      ax += cos(perpAngle) * wave1 * wAmp1;
-      ay += sin(perpAngle) * wave1 * wAmp1;
-
-      let proj2 = p.x * cos(globalAngle + 45) + p.y * sin(globalAngle + 45);
-      let wave2 = sin(proj2 * 0.009 - frameCount * 0.028 + p.seed * 0.7);
-      let wAmp2 = T_GLOBAL_F * 1.4 * wScale;
-      ax += cos(perpAngle + 45) * wave2 * wAmp2;
-      ay += sin(perpAngle + 45) * wave2 * wAmp2;
-
-      if (isMic && micMorphSq > 0.05) {
-        let gfactor = 0.018 * micMorphSq * (0.5 + p.nd * 1.0);
-        ax += cos(globalAngle) * gfactor;
-        ay += sin(globalAngle) * gfactor;
-      }
-    }
-
+    let gfactor = 0.018 * (0.5 + p.nd * 1.0);
+    ax += cos(globalAngle) * gfactor;
+    ay += sin(globalAngle) * gfactor;
 
     p.vx += ax; p.vy += ay;
     let speed = sqrt(p.vx*p.vx + p.vy*p.vy);
-    let curMaxSpeed = CUR_MAX_SPEED * max(effMurm, 0.05);
-    if (speed > curMaxSpeed) { p.vx = p.vx/speed*curMaxSpeed; p.vy = p.vy/speed*curMaxSpeed; }
+    if (speed > CUR_MAX_SPEED) { p.vx = p.vx/speed*CUR_MAX_SPEED; p.vy = p.vy/speed*CUR_MAX_SPEED; }
     p.vx *= 0.96; p.vy *= 0.96;
     p.x  += p.vx;  p.y  += p.vy;
 
