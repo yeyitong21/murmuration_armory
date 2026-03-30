@@ -40,7 +40,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let landing = document.getElementById('landing');
+  let cnv = createCanvas(landing.offsetWidth, landing.offsetHeight);
+  cnv.parent('landing');
   angleMode(DEGREES);
 
   globalAngle     = random(360);
@@ -52,6 +54,11 @@ function setup() {
 }
 
 function mousePressed() {
+  let landing = document.getElementById('landing');
+  let rect = landing.getBoundingClientRect();
+  let mx = mouseX, my = mouseY;
+  if (mx < 0 || mx > rect.width || my < 0 || my > rect.height) return;
+
   animating = !animating;
   if (animating) {
     loop();
@@ -341,6 +348,7 @@ function keyPressed() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  let landing = document.getElementById('landing');
+  resizeCanvas(landing.offsetWidth, landing.offsetHeight);
   rebuildParticles();
 }
