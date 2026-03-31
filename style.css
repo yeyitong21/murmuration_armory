@@ -106,7 +106,7 @@ html, body {
   width: 17%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
 }
 
 .seq-trigger {
