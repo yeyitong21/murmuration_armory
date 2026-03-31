@@ -87,7 +87,7 @@ html, body {
   display: block;
   width: 100%;
   height: auto;
-  cursor: url('images/mouse_hover.png') 7 7, auto;
+  cursor: url('images/mouse_hover.png') 25 25, auto;
 }
 
 /* ── Responsive ── */
