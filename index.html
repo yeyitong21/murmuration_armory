@@ -28,12 +28,23 @@
 
     <section id="sequence">
       <div class="sequence-container">
-        <img class="sequence-img" src="images/murmruation_sequence1-02.png" alt="Murmuration sequence 1" />
+        <img class="sequence-img sequence-trigger" src="images/murmruation_sequence1-02.png" alt="Murmuration sequence 1" />
         <img class="sequence-img sequence-hidden" src="images/murmruation_sequence1-03.png" alt="Murmuration sequence 2" />
         <img class="sequence-img sequence-hidden" src="images/murmruation_sequence1-04.png" alt="Murmuration sequence 3" />
         <img class="sequence-img sequence-hidden" src="images/murmruation_sequence1-05.png" alt="Murmuration sequence 4" />
       </div>
     </section>
+
+    <script>
+      const trigger = document.querySelector('.sequence-trigger');
+      const hiddenImgs = document.querySelectorAll('.sequence-hidden');
+      trigger.addEventListener('mouseenter', () => {
+        hiddenImgs.forEach(img => img.classList.add('sequence-show'));
+      });
+      trigger.addEventListener('mouseleave', () => {
+        hiddenImgs.forEach(img => img.classList.remove('sequence-show'));
+      });
+    </script>
 
     <script src="sketch.js"></script>
   </body>
