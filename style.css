@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'ALTMariaClara';
+  src: url('ALTMariaClara-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -40,7 +47,7 @@ html, body {
 }
 
 .about-left-content {
-  padding: 30px;
+  padding: 50px;
 }
 
 .about-header {
@@ -58,8 +65,8 @@ html, body {
 }
 
 .about-subtitle {
-  font-family: 'Helvetica Neue', 'Frutiger', 'Arial', sans-serif;
-  font-weight: 400;
+  font-family: 'ALTMariaClara', serif;
+  font-weight: 300;
   font-size: clamp(14px, 1.6vw, 20px);
   color: #f5e868;
   vertical-align: baseline;
