@@ -39,21 +39,7 @@ html, body {
 }
 
 .about-top {
-  display: flex;
   padding: 60px;
-  gap: 60px;
-  align-items: flex-start;
-}
-
-.about-top-left {
-  flex: 1;
-}
-
-.about-top-right {
-  flex: 1;
-  display: flex;
-  align-items: flex-end;
-  padding-top: 80px;
 }
 
 .about-header {
@@ -62,7 +48,7 @@ html, body {
   font-size: clamp(32px, 4.5vw, 58px);
   line-height: 1.15;
   color: #f5e868;
-  margin: 0;
+  margin: 0 0 30px 0;
   text-transform: lowercase;
 }
 
