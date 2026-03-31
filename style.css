@@ -99,22 +99,14 @@ html, body {
 
 .sequence-grid {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
 }
 
 .sequence-column {
-  flex: 1;
+  width: 17%;
   display: flex;
   flex-direction: column;
   gap: 30px;
-}
-
-.sequence-column:first-child {
-  margin-left: 0;
-}
-
-.sequence-column:last-child {
-  margin-right: 0;
 }
 
 .seq-trigger {
