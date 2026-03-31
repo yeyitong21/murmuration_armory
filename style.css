@@ -159,6 +159,8 @@ html, body {
 
 .perf-column {
   flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .perf-trigger {
@@ -176,13 +178,12 @@ html, body {
   max-height: 0;
   overflow: hidden;
   transition: opacity 0.6s ease, max-height 0.6s ease;
-  margin-bottom: 0;
 }
 
 .perf-rest.perf-show {
   opacity: 1;
   max-height: 600px;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 /* ── Responsive ── */
