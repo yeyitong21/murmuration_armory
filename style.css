@@ -1,7 +1,14 @@
+@font-face {
+  font-family: 'ALTMariaClara';
+  src: url('ALTMariaClara-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  background: #1a1a1a;
+  background: #000;
   color: #fff;
 }
 
@@ -19,96 +26,106 @@ html, body {
   height: 100%;
 }
 
-/* ── Summit Section ── */
-#summit {
-  background: #1a1a1a;
-  padding: 100px 60px;
-}
-
-.summit-inner {
-  max-width: 1400px;
-  margin: 0 auto;
+/* ── About Section ── */
+#about {
   display: flex;
-  gap: 80px;
-  align-items: flex-start;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.summit-left {
-  flex: 1;
-  min-width: 0;
+.about-left {
+  position: relative;
+  width: 40%;
+  background: #000;
+  z-index: 2;
+  clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
+  padding-right: 60px;
 }
 
-.summit-right {
-  flex: 1;
-  min-width: 0;
+.about-left-content {
+  padding: 60px 40px 60px 40px;
+  max-width: 520px;
 }
 
-/* Dot-matrix title */
-.summit-title {
-  font-family: 'Silkscreen', monospace;
-  font-size: clamp(28px, 4vw, 52px);
+.about-header {
+  font-family: 'ALTMariaClara', serif;
   font-weight: 400;
+  font-size: clamp(36px, 5vw, 64px);
   line-height: 1.15;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin: 0 0 60px 0;
-  color: #fff;
+  color: #f5e868;
+  margin: 0 0 40px 0;
+  text-transform: lowercase;
 }
 
-/* Quote */
-.summit-quote {
+.about-header .indent {
+  padding-left: 1.5em;
+}
+
+.about-subtitle {
+  font-family: 'Helvetica Neue', 'Frutiger', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: clamp(14px, 1.6vw, 20px);
+  color: #f5e868;
+  vertical-align: baseline;
+  margin-left: 0.5em;
+}
+
+.about-body {
+  margin-bottom: 80px;
+}
+
+.about-body p {
+  font-family: 'Helvetica Neue', 'Frutiger', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: clamp(12px, 1.1vw, 15px);
+  line-height: 1.6;
+  color: #f5e868;
+  margin: 0 0 16px 0;
+}
+
+.about-caption {
+  font-family: 'Helvetica Neue', 'Frutiger', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: clamp(11px, 1vw, 13px);
+  line-height: 1.6;
+  color: #918551;
   margin: 0;
-  padding: 0;
-  border: none;
 }
 
-.summit-quote p {
-  font-family: 'EB Garamond', serif;
-  font-style: italic;
-  font-size: clamp(16px, 1.4vw, 20px);
-  line-height: 1.6;
-  margin: 0 0 24px 0;
-  color: #b0b0b0;
+.about-right {
+  position: relative;
+  width: 60%;
+  margin-left: -10%;
+  z-index: 1;
 }
 
-.summit-quote footer {
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(14px, 1.2vw, 18px);
-  line-height: 1.6;
-  color: #fff;
-}
-
-/* Body text */
-.summit-right p {
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(16px, 1.4vw, 20px);
-  line-height: 1.7;
-  margin: 0 0 28px 0;
-  color: #e0e0e0;
-}
-
-.summit-right p:last-child {
-  margin-bottom: 0;
-}
-
-.summit-right a {
-  color: #fff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.summit-right a:hover {
-  color: #b0b0b0;
+.about-right img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  #summit {
-    padding: 60px 24px;
+  #about {
+    flex-direction: column;
   }
 
-  .summit-inner {
-    flex-direction: column;
-    gap: 48px;
+  .about-left {
+    width: 100%;
+    clip-path: none;
+    padding-right: 0;
+  }
+
+  .about-left-content {
+    max-width: 100%;
+    padding: 40px 24px;
+  }
+
+  .about-right {
+    width: 100%;
+    margin-left: 0;
+    height: 50vh;
   }
 }
