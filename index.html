@@ -111,26 +111,32 @@
         });
       });
 
-      // Set min-height on performance columns so trigger stays in place
-      function setPerformanceHeights() {
+      // Sync both groups to the same column height
+      function syncColumnHeights() {
         const seqColumns = document.querySelectorAll('#sequence .hover-column');
         const perfColumns = document.querySelectorAll('#performance .hover-column');
-        for (let i = 0; i < perfColumns.length; i++) {
-          const ref = seqColumns[i] || perfColumns[i];
-          const imgs = ref.querySelectorAll('img');
-          const colWidth = ref.offsetWidth;
-          let totalH = 0;
-          imgs.forEach(img => {
-            if (img.naturalWidth > 0) {
-              totalH += colWidth * (img.naturalHeight / img.naturalWidth);
-            }
+        const count = Math.max(seqColumns.length, perfColumns.length);
+        for (let i = 0; i < count; i++) {
+          let maxH = 0;
+          [seqColumns[i], perfColumns[i]].forEach(col => {
+            if (!col) return;
+            const imgs = col.querySelectorAll('img');
+            const w = col.offsetWidth;
+            let h = 0;
+            imgs.forEach(img => {
+              if (img.naturalWidth > 0) {
+                h += w * (img.naturalHeight / img.naturalWidth);
+              }
+            });
+            h += (imgs.length - 1) * 10;
+            if (h > maxH) maxH = h;
           });
-          totalH += (imgs.length - 1) * 10;
-          perfColumns[i].style.minHeight = totalH + 'px';
+          if (seqColumns[i]) seqColumns[i].style.minHeight = maxH + 'px';
+          if (perfColumns[i]) perfColumns[i].style.minHeight = maxH + 'px';
         }
       }
-      window.addEventListener('load', setPerformanceHeights);
-      window.addEventListener('resize', setPerformanceHeights);
+      window.addEventListener('load', syncColumnHeights);
+      window.addEventListener('resize', syncColumnHeights);
     </script>
 
     <script src="sketch.js"></script>

@@ -137,7 +137,11 @@ html, body {
 #sequence {
   background: #000;
   padding: 0;
-  min-height: 100vh;
+}
+
+#sequence .hover-column {
+  display: flex;
+  flex-direction: column;
 }
 
 #sequence .hover-rest.hover-show {
