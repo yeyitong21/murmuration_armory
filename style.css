@@ -99,12 +99,12 @@ html, body {
 
 .sequence-grid {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
   padding: 0 100px;
 }
 
 .sequence-column {
-  width: 17%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
