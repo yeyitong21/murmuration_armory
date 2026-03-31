@@ -39,14 +39,13 @@ html, body {
 }
 
 .about-top {
-  padding: 100px;
-  padding-bottom: 60px;
+  padding: 50px 100px 10px 100px;
 }
 
 .about-header {
   font-family: 'ALTMariaClara', serif;
   font-weight: 400;
-  font-size: clamp(32px, 4.5vw, 58px);
+  font-size: clamp(37px, 5.2vw, 67px);
   line-height: 1.15;
   color: #f5e868;
   margin: 0 0 30px 0;
@@ -61,7 +60,7 @@ html, body {
 .about-subtitle {
   font-family: 'ALTMariaClara', serif;
   font-weight: 300;
-  font-size: clamp(14px, 1.6vw, 20px);
+  font-size: clamp(16px, 1.84vw, 23px);
   color: #f5e868;
   vertical-align: baseline;
   margin-left: 0.5em;
