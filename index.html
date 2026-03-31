@@ -27,22 +27,50 @@
     </section>
 
     <section id="sequence">
-      <div class="sequence-container">
-        <img class="sequence-img sequence-trigger" src="images/murmruation_sequence1-02.png" alt="Murmuration sequence 1" />
-        <img class="sequence-img sequence-hidden" src="images/murmruation_sequence1-03.png" alt="Murmuration sequence 2" />
-        <img class="sequence-img sequence-hidden" src="images/murmruation_sequence1-04.png" alt="Murmuration sequence 3" />
-        <img class="sequence-img sequence-hidden" src="images/murmruation_sequence1-05.png" alt="Murmuration sequence 4" />
+      <div class="sequence-grid">
+        <div class="sequence-column">
+          <img class="seq-trigger" src="images/murmruation_sequence1-02.png" alt="" />
+          <img class="seq-rest" src="images/murmruation_sequence1-03.png" alt="" />
+          <img class="seq-rest" src="images/murmruation_sequence1-04.png" alt="" />
+          <img class="seq-rest" src="images/murmruation_sequence1-05.png" alt="" />
+        </div>
+        <div class="sequence-column">
+          <img class="seq-trigger" src="images/murmuration_sequence-08.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-09.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-10.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-11.png" alt="" />
+        </div>
+        <div class="sequence-column">
+          <img class="seq-trigger" src="images/murmuration_sequence-12.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-13.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-14.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-15.png" alt="" />
+        </div>
+        <div class="sequence-column">
+          <img class="seq-trigger" src="images/murmuration_sequence-16.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-17.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-18.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-19.png" alt="" />
+        </div>
+        <div class="sequence-column">
+          <img class="seq-trigger" src="images/murmuration_sequence-20.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-21.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-22.png" alt="" />
+          <img class="seq-rest" src="images/murmuration_sequence-23.png" alt="" />
+        </div>
       </div>
     </section>
 
     <script>
-      const trigger = document.querySelector('.sequence-trigger');
-      const hiddenImgs = document.querySelectorAll('.sequence-hidden');
-      trigger.addEventListener('mouseenter', () => {
-        hiddenImgs.forEach(img => img.classList.add('sequence-show'));
-      });
-      trigger.addEventListener('mouseleave', () => {
-        hiddenImgs.forEach(img => img.classList.remove('sequence-show'));
+      document.querySelectorAll('.seq-trigger').forEach(trigger => {
+        const column = trigger.parentElement;
+        const rest = column.querySelectorAll('.seq-rest');
+        trigger.addEventListener('mouseenter', () => {
+          rest.forEach(img => img.classList.add('seq-show'));
+        });
+        trigger.addEventListener('mouseleave', () => {
+          rest.forEach(img => img.classList.remove('seq-show'));
+        });
       });
     </script>
 
