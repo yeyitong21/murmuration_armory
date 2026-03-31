@@ -1,6 +1,6 @@
 let font, pg;
 let currentTxt = "murmuration";
-let fontSize = 100;
+let fontSize = 115;
 let focalX, focalY;
 let particles = [];
 let animating = false;
