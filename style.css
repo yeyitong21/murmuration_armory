@@ -100,13 +100,14 @@ html, body {
 .sequence-grid {
   display: flex;
   justify-content: space-between;
+  padding: 0 100px;
 }
 
 .sequence-column {
   width: 17%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .seq-trigger {
