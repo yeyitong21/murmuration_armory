@@ -40,7 +40,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let landing = document.getElementById('landing');
+  let cnv = createCanvas(landing.offsetWidth, landing.offsetHeight);
+  cnv.parent('landing');
   angleMode(DEGREES);
 
   globalAngle     = random(360);
@@ -52,18 +54,12 @@ function setup() {
 }
 
 function mousePressed() {
-  animating = !animating;
-  if (animating) {
-    loop();
-  } else {
-    for (let p of particles) {
-      p.x = p.homeX; p.y = p.homeY;
-      p.vx = 0;      p.vy = 0;
-      p.angle = p.baseAngle;
-    }
-    redrawStatic();
-    noLoop();
-  }
+  let landing = document.getElementById('landing');
+  let rect = landing.getBoundingClientRect();
+  let mx = mouseX, my = mouseY;
+  if (mx < 0 || mx > rect.width || my < 0 || my > rect.height) return;
+
+  rebuildParticles();
 }
 
 function redrawStatic() {
@@ -201,12 +197,8 @@ function rebuildParticles() {
 
   pg.remove();
 
-  if (animating) {
-    loop();
-  } else {
-    redrawStatic();
-    noLoop();
-  }
+  animating = true;
+  loop();
 }
 
 function draw() {
@@ -341,6 +333,7 @@ function keyPressed() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  let landing = document.getElementById('landing');
+  resizeCanvas(landing.offsetWidth, landing.offsetHeight);
   rebuildParticles();
 }
