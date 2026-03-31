@@ -34,17 +34,13 @@ html, body {
 }
 
 .about-left {
-  position: relative;
   width: 40%;
   background: #000;
-  z-index: 2;
-  clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
-  padding-right: 60px;
+  flex-shrink: 0;
 }
 
 .about-left-content {
-  padding: 60px 40px 60px 40px;
-  max-width: 520px;
+  padding: 30px;
 }
 
 .about-header {
@@ -93,10 +89,8 @@ html, body {
 }
 
 .about-right {
-  position: relative;
   width: 60%;
-  margin-left: -10%;
-  z-index: 1;
+  flex-shrink: 0;
 }
 
 .about-right img {
