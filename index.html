@@ -99,13 +99,12 @@
     </div>
 
     <script>
-      document.querySelectorAll('.hover-trigger').forEach(trigger => {
-        const column = trigger.parentElement;
+      document.querySelectorAll('.hover-column').forEach(column => {
         const rest = column.querySelectorAll('.hover-rest');
-        trigger.addEventListener('mouseenter', () => {
+        column.addEventListener('mouseenter', () => {
           rest.forEach(img => img.classList.add('hover-show'));
         });
-        trigger.addEventListener('mouseleave', () => {
+        column.addEventListener('mouseleave', () => {
           rest.forEach(img => img.classList.remove('hover-show'));
         });
       });
