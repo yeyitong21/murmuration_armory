@@ -151,7 +151,7 @@ html, body {
 }
 
 #performance .hover-grid {
-  padding: 0 calc(85px + 7.5vw);
+  padding: 0 100px;
   gap: 10px;
 }
 
