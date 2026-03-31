@@ -157,7 +157,8 @@ html, body {
 
 #performance .hover-column {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 #performance .hover-rest.hover-show {

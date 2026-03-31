@@ -65,49 +65,72 @@
     <section id="performance">
       <div class="hover-grid">
         <div class="hover-column">
-          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-25.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-26.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-27.png" alt="" />
           <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-28.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-27.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-26.png" alt="" />
+          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-25.png" alt="" />
         </div>
         <div class="hover-column">
-          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-29.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-30.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-31.png" alt="" />
           <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-32.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-31.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-30.png" alt="" />
+          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-29.png" alt="" />
         </div>
         <div class="hover-column">
-          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-33.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-34.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-35.png" alt="" />
           <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-36.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-35.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-34.png" alt="" />
+          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-33.png" alt="" />
         </div>
         <div class="hover-column">
-          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-37.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-38.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-39.png" alt="" />
           <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-40.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-39.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-38.png" alt="" />
+          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-37.png" alt="" />
         </div>
         <div class="hover-column">
-          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-41.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-42.png" alt="" />
-          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-43.png" alt="" />
           <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-44.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-43.png" alt="" />
+          <img class="hover-rest" src="images/murmuration_Websketch_Wk10_html-42.png" alt="" />
+          <img class="hover-trigger" src="images/murmuration_Websketch_Wk10_html-41.png" alt="" />
         </div>
       </div>
     </section>
     </div>
 
     <script>
+      // Hover: trigger activates, leaving column deactivates
       document.querySelectorAll('.hover-column').forEach(column => {
+        const trigger = column.querySelector('.hover-trigger');
         const rest = column.querySelectorAll('.hover-rest');
-        column.addEventListener('mouseenter', () => {
+        trigger.addEventListener('mouseenter', () => {
           rest.forEach(img => img.classList.add('hover-show'));
         });
         column.addEventListener('mouseleave', () => {
           rest.forEach(img => img.classList.remove('hover-show'));
         });
       });
+
+      // Set min-height on performance columns so trigger stays in place
+      function setPerformanceHeights() {
+        const seqColumns = document.querySelectorAll('#sequence .hover-column');
+        const perfColumns = document.querySelectorAll('#performance .hover-column');
+        for (let i = 0; i < perfColumns.length; i++) {
+          const ref = seqColumns[i] || perfColumns[i];
+          const imgs = ref.querySelectorAll('img');
+          const colWidth = ref.offsetWidth;
+          let totalH = 0;
+          imgs.forEach(img => {
+            if (img.naturalWidth > 0) {
+              totalH += colWidth * (img.naturalHeight / img.naturalWidth);
+            }
+          });
+          totalH += (imgs.length - 1) * 10;
+          perfColumns[i].style.minHeight = totalH + 'px';
+        }
+      }
+      window.addEventListener('load', setPerformanceHeights);
+      window.addEventListener('resize', setPerformanceHeights);
     </script>
 
     <script src="sketch.js"></script>
