@@ -99,34 +99,27 @@ html, body {
   cursor: url('images/mouse_hover.png') 25 25, auto;
 }
 
-/* ── Sequence Section ── */
-#sequence {
-  background: #000;
-  padding: 0;
-  min-height: 100vh;
-}
-
-.sequence-grid {
+/* ── Shared hover grid styles ── */
+.hover-grid {
   display: flex;
   gap: 10px;
   padding: 0 100px;
 }
 
-.sequence-column {
+.hover-column {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.seq-trigger {
+.hover-trigger {
   display: block;
   width: 100%;
   height: auto;
   cursor: pointer;
-  margin-bottom: 10px;
 }
 
-.seq-rest {
+.hover-rest {
   display: block;
   width: 100%;
   height: auto;
@@ -134,20 +127,25 @@ html, body {
   max-height: 0;
   overflow: hidden;
   transition: opacity 0.6s ease, max-height 0.6s ease, margin 0.6s ease;
-  margin-bottom: 0;
 }
 
-.seq-rest.seq-show {
+.hover-rest.hover-show {
   opacity: 1;
   max-height: 600px;
-  margin-bottom: 10px;
 }
 
-.seq-rest:last-child.seq-show {
-  margin-bottom: 0;
+/* ── Sequence Section (top-to-bottom) ── */
+#sequence {
+  background: #000;
+  padding: 0;
+  min-height: 100vh;
 }
 
-/* ── Performance Section ── */
+#sequence .hover-rest.hover-show {
+  margin-top: 10px;
+}
+
+/* ── Performance Section (bottom-to-top) ── */
 #performance {
   background: #000;
   padding: 0;
@@ -156,46 +154,12 @@ html, body {
   align-items: flex-end;
 }
 
-.perf-grid {
-  display: flex;
-  gap: 10px;
-  padding: 0 100px;
+#performance .hover-grid {
   width: 100%;
 }
 
-.perf-column {
-  flex: 1;
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-.perf-trigger {
-  display: block;
-  width: 100%;
-  height: auto;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.perf-rest {
-  display: block;
-  width: 100%;
-  height: auto;
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity 0.6s ease, max-height 0.6s ease, margin 0.6s ease;
-  margin-top: 0;
-}
-
-.perf-rest.perf-show {
-  opacity: 1;
-  max-height: 600px;
-  margin-top: 10px;
-}
-
-.perf-rest:last-child.perf-show {
-  margin-top: 0;
+#performance .hover-rest.hover-show {
+  margin-bottom: 10px;
 }
 
 /* ── Responsive ── */
