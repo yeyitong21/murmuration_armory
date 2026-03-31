@@ -36,7 +36,7 @@ html, body {
 /* ── About Section ── */
 #about {
   position: relative;
-  min-height: 100vh;
+  height: 820px;
   overflow: hidden;
 }
 
@@ -44,23 +44,22 @@ html, body {
   position: absolute;
   top: 0;
   right: 0;
-  width: 60%;
+  width: 48%;
   height: 100%;
   z-index: 1;
 }
 
 .about-left {
   position: relative;
-  width: 45%;
-  min-height: 100vh;
+  width: 55%;
+  height: 100%;
   background: #000;
   clip-path: polygon(0 0, 100% 0, 75% 100%, 0 100%);
   z-index: 2;
 }
 
 .about-left-content {
-  padding: 50px;
-  padding-right: 80px;
+  padding: 100px;
 }
 
 .about-header {
