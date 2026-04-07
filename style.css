@@ -36,6 +36,34 @@ html, body {
   height: 100%;
 }
 
+#murmur-input {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 238, 73, 0.4);
+  color: #ffee49;
+  font-family: 'ALTMariaClara', serif;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
+  padding: 8px 16px;
+  width: 280px;
+  outline: none;
+  letter-spacing: 0.05em;
+}
+
+#murmur-input::placeholder {
+  color: rgba(255, 238, 73, 0.3);
+}
+
+#murmur-input:focus {
+  border-bottom-color: rgba(255, 238, 73, 0.8);
+}
+
 #content {
   position: relative;
   z-index: 1;

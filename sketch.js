@@ -51,6 +51,18 @@ function setup() {
 
   rebuildParticles();
   noLoop();
+
+  document.getElementById('murmur-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      let val = this.value.trim();
+      if (val.length > 0) {
+        currentTxt = val;
+        rebuildParticles();
+      }
+      this.blur();
+    }
+  });
 }
 
 function mousePressed() {
