@@ -133,6 +133,16 @@ function rebuildParticles() {
   let lines = txt.split('\n').filter(l => l.trim().length > 0);
   if (lines.length === 0) return;
 
+  // Auto-scale fontSize so text fits 65% of canvas width
+  let targetW = width * 0.65;
+  fontSize = 115;
+  let longestLine = lines.reduce((a, b) => a.length > b.length ? a : b);
+  let testB = font.textBounds(longestLine, 0, 0, fontSize);
+  if (testB.w > 0) {
+    fontSize = floor(fontSize * (targetW / testB.w));
+    fontSize = max(fontSize, 10);
+  }
+
   pg = createGraphics(width, height);
   pg.pixelDensity(1);
   pg.clear();

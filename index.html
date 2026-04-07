@@ -180,7 +180,7 @@
         const line1El = document.getElementById('intro-line1');
         const line2El = document.getElementById('intro-line2');
         const overlay = document.getElementById('intro-overlay');
-        const totalTypingTime = 8000; // 8s typing, then 1s pause, then 1s fade
+        const totalTypingTime = 4000; // 4s typing, then 3s pause, then 2.5s fade
         const charCount = line1Text.length + line2Text.length;
         const charDelay = totalTypingTime / charCount;
         let i = 0;
@@ -202,13 +202,13 @@
             setTimeout(typeNext, charDelay);
           } else {
             line2El.classList.remove('intro-cursor');
-            // Pause 1s then fade out 1s
+            // Pause 3s then fade out 2.5s
             setTimeout(() => {
               overlay.classList.add('fade-out');
               setTimeout(() => {
                 overlay.style.display = 'none';
-              }, 1000);
-            }, 1000);
+              }, 2500);
+            }, 3000);
           }
         }
 

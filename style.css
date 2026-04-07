@@ -31,7 +31,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 1s ease;
+  transition: opacity 2.5s ease;
 }
 
 #intro-overlay.fade-out {
