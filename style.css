@@ -19,15 +19,16 @@ html, body {
   color: #fff;
 }
 
-/* ── Landing (p5 canvas) ── */
+/* ── Landing (p5 canvas – transparent overlay) ── */
 #landing {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 20vh;
   overflow: hidden;
-  z-index: 0;
+  z-index: 10;
+  pointer-events: none;
 }
 
 #landing canvas {
@@ -39,7 +40,6 @@ html, body {
 #content {
   position: relative;
   z-index: 1;
-  margin-top: 100vh;
 }
 
 /* ── About Section ── */
