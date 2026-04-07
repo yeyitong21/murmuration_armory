@@ -229,6 +229,7 @@ html, body {
 /* ── Info2 Section ── */
 #info2 {
   background: #000;
+  margin-top: 100px;
 }
 
 .info2-top {
@@ -241,7 +242,7 @@ html, body {
   font-size: clamp(37px, 5.2vw, 67px);
   line-height: 1.15;
   color: #f5e868;
-  margin: 0 0 30px 0;
+  margin: 0 0 10px 0;
   text-transform: lowercase;
   width: 50%;
 }
@@ -255,8 +256,7 @@ html, body {
   font-weight: 300;
   font-size: clamp(16px, 1.84vw, 23px);
   color: #f5e868;
-  vertical-align: baseline;
-  margin-left: 0.5em;
+  margin: 0 0 30px 0;
 }
 
 .info2-body-text {
