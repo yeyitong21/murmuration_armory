@@ -226,6 +226,11 @@ html, body {
   height: auto;
 }
 
+/* ── Info2 Section ── */
+#info2 {
+  background: #000;
+}
+
 /* ── Sequences Section ── */
 #sequences {
   background: #000;
