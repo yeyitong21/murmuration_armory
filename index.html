@@ -219,7 +219,7 @@
       window.addEventListener('load', alignInfo2);
       window.addEventListener('resize', alignInfo2);
 
-      // Align info3 subtitle with the "d" stem in "Sadeck"
+      // Align info3 subtitle right edge with "d" stem in "Sadeck"
       function alignInfo3() {
         const header = document.getElementById('info3-header');
         const subtitle = document.getElementById('info3-subtitle');
@@ -228,11 +228,12 @@
         span.style.visibility = 'hidden';
         span.style.position = 'absolute';
         span.style.font = getComputedStyle(header).font;
-        span.textContent = 'Sa';
+        span.textContent = 'Sad';
         document.body.appendChild(span);
-        const saW = span.offsetWidth;
+        const sadW = span.offsetWidth;
         document.body.removeChild(span);
-        subtitle.style.paddingLeft = saW + 'px';
+        subtitle.style.width = sadW + 'px';
+        subtitle.style.textAlign = 'right';
       }
       window.addEventListener('load', alignInfo3);
       window.addEventListener('resize', alignInfo3);
