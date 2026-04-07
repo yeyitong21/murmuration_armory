@@ -25,7 +25,7 @@ html, body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 20vh;
+  height: 40vh;
   overflow: hidden;
   z-index: 10;
   pointer-events: none;
