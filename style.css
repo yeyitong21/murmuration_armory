@@ -328,6 +328,19 @@ html, body {
   margin-left: 60%;
 }
 
+.info3-image {
+  width: 100%;
+  padding: 0;
+  margin-top: 50px;
+}
+
+.info3-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: url('images/mouse_hover.png') 25 25, auto;
+}
+
 /* ── Sequences Section ── */
 #sequences {
   background: #000;
