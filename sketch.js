@@ -1,12 +1,12 @@
 let font, pg;
 let currentTxt = "murmuration";
-let fontSize = 50;
+let fontSize = 115;
 let focalX, focalY;
 let particles = [];
 let animating = false;
 
-const DENSITY    = 8000;
-const OFFSET     = 30;
+const DENSITY    = 20000;
+const OFFSET     = 100;
 
 const T_MAX_SPEED     = 1.4;
 const T_MAX_FORCE     = 0.045;
@@ -63,7 +63,7 @@ function mousePressed() {
 }
 
 function redrawStatic() {
-  clear();
+  background(0);
   strokeWeight(1);
   for (let p of particles) {
     let x2 = p.x + cos(p.angle) * p.len;
@@ -113,8 +113,8 @@ function renderTextToGraphics(lines, pg) {
 
 function rebuildParticles() {
   particles = [];
-  clear();
-  clear();
+  background(0);
+  background(0);
 
   let txt = currentTxt;
 
@@ -202,7 +202,7 @@ function rebuildParticles() {
 }
 
 function draw() {
-  clear();
+  background(0);
 
   if (!animating) { redrawStatic(); return; }
 
