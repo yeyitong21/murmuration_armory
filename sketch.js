@@ -134,7 +134,7 @@ function rebuildParticles() {
   if (lines.length === 0) return;
 
   // Auto-scale fontSize so text fits 65% of canvas width
-  let targetW = width * 0.65;
+  let targetW = width * 0.55;
   fontSize = 115;
   let longestLine = lines.reduce((a, b) => a.length > b.length ? a : b);
   let testB = font.textBounds(longestLine, 0, 0, fontSize);

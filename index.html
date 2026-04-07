@@ -180,7 +180,7 @@
         const line1El = document.getElementById('intro-line1');
         const line2El = document.getElementById('intro-line2');
         const overlay = document.getElementById('intro-overlay');
-        const totalTypingTime = 4000; // 4s typing, then 3s pause, then 2.5s fade
+        const totalTypingTime = 6000; // 6s typing, then 1.5s pause, then 2.5s fade
         const charCount = line1Text.length + line2Text.length;
         const charDelay = totalTypingTime / charCount;
         let i = 0;
@@ -208,7 +208,7 @@
               setTimeout(() => {
                 overlay.style.display = 'none';
               }, 2500);
-            }, 3000);
+            }, 1500);
           }
         }
 
