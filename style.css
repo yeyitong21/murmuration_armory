@@ -229,7 +229,7 @@ html, body {
 /* ── Info2 Section ── */
 #info2 {
   background: #000;
-  margin-top: 100px;
+  padding-top: 100px;
 }
 
 .info2-top {
@@ -248,7 +248,7 @@ html, body {
 }
 
 .info2-header .indent {
-  padding-left: 1.5em;
+  display: inline-block;
 }
 
 .info2-subtitle {
