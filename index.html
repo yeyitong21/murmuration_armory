@@ -142,8 +142,8 @@
 
     <section id="info3">
       <div class="info3-top">
-        <h2 class="info3-header">Sadeck Berrabah</h2>
-        <p class="info3-subtitle">
+        <h2 class="info3-header" id="info3-header">Sadeck Berrabah</h2>
+        <p class="info3-subtitle" id="info3-subtitle">
           <span>transforming murmuration</span><br>
           <span class="indent">into human choreography</span>
         </p>
@@ -218,6 +218,24 @@
       }
       window.addEventListener('load', alignInfo2);
       window.addEventListener('resize', alignInfo2);
+
+      // Align info3 subtitle with the "d" stem in "Sadeck"
+      function alignInfo3() {
+        const header = document.getElementById('info3-header');
+        const subtitle = document.getElementById('info3-subtitle');
+        if (!header || !subtitle) return;
+        const span = document.createElement('span');
+        span.style.visibility = 'hidden';
+        span.style.position = 'absolute';
+        span.style.font = getComputedStyle(header).font;
+        span.textContent = 'Sa';
+        document.body.appendChild(span);
+        const saW = span.offsetWidth;
+        document.body.removeChild(span);
+        subtitle.style.paddingLeft = saW + 'px';
+      }
+      window.addEventListener('load', alignInfo3);
+      window.addEventListener('resize', alignInfo3);
     </script>
 
     <script>
