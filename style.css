@@ -19,6 +19,49 @@ html, body {
   color: #fff;
 }
 
+/* ── Intro Overlay ── */
+#intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease;
+}
+
+#intro-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#intro-text {
+  text-align: center;
+}
+
+.intro-line {
+  font-family: 'ALTMariaClara', serif;
+  font-weight: 400;
+  font-size: 30px;
+  color: #f5e868;
+  line-height: 1.5;
+  min-height: 1.5em;
+}
+
+.intro-cursor::after {
+  content: '|';
+  animation: blink 0.6s step-end infinite;
+  color: #f5e868;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
 /* ── Landing (p5 canvas) ── */
 #landing {
   position: fixed;

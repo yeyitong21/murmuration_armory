@@ -9,6 +9,13 @@
   </head>
   <body>
 
+    <div id="intro-overlay">
+      <div id="intro-text">
+        <div class="intro-line" id="intro-line1"></div>
+        <div class="intro-line" id="intro-line2"></div>
+      </div>
+    </div>
+
     <section id="landing">
       <input id="murmur-input" type="text" placeholder="type here & press enter" />
     </section>
@@ -163,6 +170,50 @@
       }
       window.addEventListener('load', setExpansionHeights);
       window.addEventListener('resize', setExpansionHeights);
+    </script>
+
+    <script>
+      // Intro typing animation
+      (function() {
+        const line1Text = 'a monumental performance by murmuration concept,';
+        const line2Text = 'inspired by natural phenomenon.';
+        const line1El = document.getElementById('intro-line1');
+        const line2El = document.getElementById('intro-line2');
+        const overlay = document.getElementById('intro-overlay');
+        const totalTypingTime = 8000; // 8s typing, then 1s pause, then 1s fade
+        const charCount = line1Text.length + line2Text.length;
+        const charDelay = totalTypingTime / charCount;
+        let i = 0;
+
+        line1El.classList.add('intro-cursor');
+
+        function typeNext() {
+          if (i < line1Text.length) {
+            line1El.textContent += line1Text[i];
+            i++;
+            setTimeout(typeNext, charDelay);
+          } else if (i < charCount) {
+            if (i === line1Text.length) {
+              line1El.classList.remove('intro-cursor');
+              line2El.classList.add('intro-cursor');
+            }
+            line2El.textContent += line2Text[i - line1Text.length];
+            i++;
+            setTimeout(typeNext, charDelay);
+          } else {
+            line2El.classList.remove('intro-cursor');
+            // Pause 1s then fade out 1s
+            setTimeout(() => {
+              overlay.classList.add('fade-out');
+              setTimeout(() => {
+                overlay.style.display = 'none';
+              }, 1000);
+            }, 1000);
+          }
+        }
+
+        typeNext();
+      })();
     </script>
 
     <script src="sketch.js"></script>
