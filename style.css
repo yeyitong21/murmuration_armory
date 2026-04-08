@@ -398,10 +398,8 @@ html, body {
 
 .stack-sticky {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 50px;
   display: flex;
-  align-items: center;
   justify-content: center;
   background: #000;
 }
