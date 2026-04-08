@@ -389,6 +389,58 @@ html, body {
   margin-left: 60%;
 }
 
+/* ── Stack Images ── */
+.stack-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 60px 0 100px;
+}
+
+.stack-wrapper {
+  position: relative;
+  width: 70%;
+  aspect-ratio: 4 / 3;
+}
+
+.stack-img {
+  position: absolute;
+  width: 65%;
+  height: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: none;
+  opacity: 0;
+}
+
+#stack1 {
+  z-index: 1;
+}
+
+#stack2 {
+  z-index: 2;
+}
+
+#stack3 {
+  z-index: 3;
+}
+
+#stack1.stack-visible {
+  opacity: 1;
+  transform: translate(-65%, -45%) rotate(15deg);
+}
+
+#stack2.stack-visible {
+  opacity: 1;
+  transform: translate(-40%, -55%) rotate(-7deg);
+}
+
+#stack3.stack-visible {
+  opacity: 1;
+  transform: translate(-30%, -40%) rotate(-18deg);
+}
+
 /* ── Sequences Section ── */
 #sequences {
   background: #000;

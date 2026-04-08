@@ -166,10 +166,63 @@
         </p>
         <p class="info4-body-text">A murmuration is a natural phenomenon where hundreds or thousands of birds, often starlings, fly together in fluid, ever-changing formations. Without any single leader, each bird responds only to the movement of nearby birds, creating a highly coordinated collective pattern. Scientists believe this behavior helps protect the flock from predators and keeps the group together, while beyond biology it has also become a powerful symbol of collective intelligence, harmony, and emergence.</p>
       </div>
+      <div class="stack-container">
+        <div class="stack-wrapper">
+          <img class="stack-img" id="stack1" src="images/stack1.png" alt="" />
+          <img class="stack-img" id="stack2" src="images/stack2.png" alt="" />
+          <img class="stack-img" id="stack3" src="images/stack3.png" alt="" />
+        </div>
+      </div>
     </section>
     </div>
 
     <script>
+      // Stack images scroll animation
+      (function() {
+        const stack1 = document.getElementById('stack1');
+        const stack2 = document.getElementById('stack2');
+        const stack3 = document.getElementById('stack3');
+        const container = document.querySelector('.stack-container');
+        if (!container) return;
+
+        // Set initial position: off-screen below
+        stack1.style.transform = 'translate(-50%, 150%) rotate(0deg)';
+        stack2.style.transform = 'translate(-50%, 150%) rotate(0deg)';
+        stack3.style.transform = 'translate(-50%, 150%) rotate(0deg)';
+
+        let triggered = [false, false, false];
+
+        function checkScroll() {
+          const rect = container.getBoundingClientRect();
+          const windowH = window.innerHeight;
+          const triggerPoint = windowH * 0.85;
+
+          if (rect.top < triggerPoint && !triggered[0]) {
+            triggered[0] = true;
+            stack1.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease';
+            stack1.style.opacity = '1';
+            stack1.style.transform = 'translate(-65%, -45%) rotate(15deg)';
+          }
+
+          if (rect.top < triggerPoint - 80 && !triggered[1]) {
+            triggered[1] = true;
+            stack2.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s, opacity 0.8s ease 0.2s';
+            stack2.style.opacity = '1';
+            stack2.style.transform = 'translate(-40%, -55%) rotate(-7deg)';
+          }
+
+          if (rect.top < triggerPoint - 160 && !triggered[2]) {
+            triggered[2] = true;
+            stack3.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s, opacity 0.8s ease 0.4s';
+            stack3.style.opacity = '1';
+            stack3.style.transform = 'translate(-30%, -40%) rotate(-18deg)';
+          }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+      })();
+
       // Hover: each trigger activates its own rest-group, deactivates the other
       document.querySelectorAll('.hover-column').forEach(column => {
         const g1Trigger = column.querySelector('.g1-trigger');
