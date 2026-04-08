@@ -391,10 +391,9 @@ html, body {
 
 /* ── Stack Images ── */
 .stack-scroll {
-  height: calc(300vh + 900px);
+  height: calc(300vh + 1500px);
   position: relative;
   background: #000;
-  padding-top: 600px;
 }
 
 .stack-sticky {
