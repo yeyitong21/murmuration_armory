@@ -394,11 +394,15 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 60px 0 100px;
+  margin-top: 80px;
+  padding: 0 0 100px;
+  min-height: 200vh;
+  position: relative;
 }
 
-.stack-wrapper {
-  position: relative;
+.stack-sticky {
+  position: sticky;
+  top: 10vh;
   width: 80%;
   aspect-ratio: 4 / 3;
 }
@@ -409,9 +413,10 @@ html, body {
   height: auto;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 120%);
   opacity: 0;
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
+  will-change: transform, opacity;
 }
 
 #stack1 { z-index: 1; }

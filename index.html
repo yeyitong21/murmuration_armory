@@ -167,7 +167,7 @@
         <p class="info4-body-text">A murmuration is a natural phenomenon where hundreds or thousands of birds, often starlings, fly together in fluid, ever-changing formations. Without any single leader, each bird responds only to the movement of nearby birds, creating a highly coordinated collective pattern. Scientists believe this behavior helps protect the flock from predators and keeps the group together, while beyond biology it has also become a powerful symbol of collective intelligence, harmony, and emergence.</p>
       </div>
       <div class="stack-container">
-        <div class="stack-wrapper">
+        <div class="stack-sticky">
           <img class="stack-img" id="stack1" src="images/stack1.png" alt="" />
           <img class="stack-img" id="stack2" src="images/stack2.png" alt="" />
           <img class="stack-img" id="stack3" src="images/stack3.png" alt="" />
@@ -177,18 +177,22 @@
     </div>
 
     <script>
-      // Stack images scroll-driven animation (reversible)
+      // Stack images: scroll-driven stacking slideshow (reversible)
       (function() {
+        // Each image: start position (scattered below) → end position (stacked center)
         const stacks = [
-          { el: document.getElementById('stack1'), endX: -55, endY: -55, endR: 15 },
-          { el: document.getElementById('stack2'), endX: -45, endY: -50, endR: -7 },
-          { el: document.getElementById('stack3'), endX: -50, endY: -45, endR: -18 }
+          { el: document.getElementById('stack1'),
+            startX: -80, startY: 120, startR: 25,
+            endX: -55, endY: -50, endR: 15 },
+          { el: document.getElementById('stack2'),
+            startX: -30, startY: 140, startR: -15,
+            endX: -48, endY: -52, endR: -7 },
+          { el: document.getElementById('stack3'),
+            startX: -50, startY: 160, startR: -30,
+            endX: -44, endY: -48, endR: -18 }
         ];
         const container = document.querySelector('.stack-container');
         if (!container) return;
-
-        // Start: centered, below container
-        const startX = -50, startY = 150, startR = 0;
 
         function lerp(a, b, t) { return a + (b - a) * t; }
         function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
@@ -196,24 +200,29 @@
         function update() {
           const rect = container.getBoundingClientRect();
           const wh = window.innerHeight;
-          // progress 0→1: starts when container top enters viewport bottom, ends when container is centered
-          const rawProgress = (wh - rect.top) / (rect.height + wh * 0.2);
-          const progress = clamp(rawProgress, 0, 1);
-          // Only animate once section is in view
+
+          // Only process when section is in viewport
           if (rect.bottom < 0 || rect.top > wh) return;
 
-          stacks.forEach((s, i) => {
-            // stagger: each image starts a bit later
-            const stagger = i * 0.15;
-            const t = clamp((progress - stagger) / (1 - stagger), 0, 1);
-            // ease out cubic
-            const ease = 1 - Math.pow(1 - t, 3);
+          // Scroll progress within the container's tall area
+          const scrollable = container.offsetHeight - wh;
+          const scrolled = -rect.top;
+          const progress = clamp(scrolled / scrollable, 0, 1);
 
-            const x = lerp(startX, s.endX, ease);
-            const y = lerp(startY, s.endY, ease);
-            const r = lerp(startR, s.endR, ease);
+          // Each image gets its own segment of the progress
+          const segments = stacks.length;
+          stacks.forEach((s, i) => {
+            const segStart = i / segments;
+            const segEnd = (i + 1) / segments;
+            const t = clamp((progress - segStart) / (segEnd - segStart), 0, 1);
+            // Smooth ease in-out
+            const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+            const x = lerp(s.startX, s.endX, ease);
+            const y = lerp(s.startY, s.endY, ease);
+            const r = lerp(s.startR, s.endR, ease);
             s.el.style.transform = `translate(${x}%, ${y}%) rotate(${r}deg)`;
-            s.el.style.opacity = clamp(t * 2, 0, 1);
+            s.el.style.opacity = clamp(ease * 1.5, 0, 1);
           });
         }
 
