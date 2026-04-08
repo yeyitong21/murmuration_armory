@@ -391,7 +391,7 @@ html, body {
 
 /* ── Stack Images ── */
 .stack-scroll {
-  height: calc(300vh + 300px);
+  height: calc(300vh + 900px);
   position: relative;
   background: #000;
 }
