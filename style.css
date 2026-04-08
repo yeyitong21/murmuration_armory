@@ -394,12 +394,13 @@ html, body {
   height: 300vh;
   position: relative;
   background: #000;
+  margin-top: -30vh;
 }
 
 .stack-sticky {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 15vh;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -407,16 +408,16 @@ html, body {
 
 .stack-area {
   position: relative;
-  width: 70%;
-  aspect-ratio: 4 / 3;
+  width: 80%;
+  height: 100%;
 }
 
 .stack-img {
   position: absolute;
-  width: 65%;
+  width: 55%;
   height: auto;
   left: 50%;
-  top: 50%;
+  top: 45%;
   transform: translate(-50%, 100vh);
   opacity: 0;
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
