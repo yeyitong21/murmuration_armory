@@ -155,27 +155,28 @@
     </section>
 
     <section id="info4">
-      <div class="info4-scroll">
-        <div class="info4-sticky">
-          <div class="info4-top">
-            <h2 class="info4-header">
-              murmuration<br>
-              <span class="indent">at the armory</span>
-            </h2>
-            <p class="info4-subtitle">
-              a monumental performance<br>
-              <span class="indent">by murmuration concept</span>
-            </p>
-            <p class="info4-body-text">A murmuration is a natural phenomenon where hundreds or thousands of birds, often starlings, fly together in fluid, ever-changing formations. Without any single leader, each bird responds only to the movement of nearby birds, creating a highly coordinated collective pattern. Scientists believe this behavior helps protect the flock from predators and keeps the group together, while beyond biology it has also become a powerful symbol of collective intelligence, harmony, and emergence.</p>
-          </div>
-          <div class="stack-area" id="stack-area">
-            <img class="stack-img" id="stack1" src="images/stack1.png" alt="" />
-            <img class="stack-img" id="stack2" src="images/stack2.png" alt="" />
-            <img class="stack-img" id="stack3" src="images/stack3.png" alt="" />
-          </div>
-        </div>
+      <div class="info4-top">
+        <h2 class="info4-header">
+          murmuration<br>
+          <span class="indent">at the armory</span>
+        </h2>
+        <p class="info4-subtitle">
+          a monumental performance<br>
+          <span class="indent">by murmuration concept</span>
+        </p>
+        <p class="info4-body-text">A murmuration is a natural phenomenon where hundreds or thousands of birds, often starlings, fly together in fluid, ever-changing formations. Without any single leader, each bird responds only to the movement of nearby birds, creating a highly coordinated collective pattern. Scientists believe this behavior helps protect the flock from predators and keeps the group together, while beyond biology it has also become a powerful symbol of collective intelligence, harmony, and emergence.</p>
       </div>
     </section>
+
+    <div class="stack-scroll" id="stack-scroll">
+      <div class="stack-sticky">
+        <div class="stack-area">
+          <img class="stack-img" id="stack1" src="images/stack1.png" alt="" />
+          <img class="stack-img" id="stack2" src="images/stack2.png" alt="" />
+          <img class="stack-img" id="stack3" src="images/stack3.png" alt="" />
+        </div>
+      </div>
+    </div>
     </div>
 
     <script>
@@ -183,16 +184,16 @@
       (function() {
         const stacks = [
           { el: document.getElementById('stack1'),
-            endX: -55, endY: 0, endR: 15 },
+            endX: -55, endY: -50, endR: 15 },
           { el: document.getElementById('stack2'),
-            endX: -48, endY: -5, endR: -7 },
+            endX: -48, endY: -52, endR: -7 },
           { el: document.getElementById('stack3'),
-            endX: -44, endY: 2, endR: -18 }
+            endX: -44, endY: -48, endR: -18 }
         ];
-        const scrollBox = document.querySelector('.info4-scroll');
+        const scrollBox = document.getElementById('stack-scroll');
         if (!scrollBox) return;
 
-        const startY = 120; // vh-relative: start from below viewport
+        const startY = 300; // start from well below
 
         function lerp(a, b, t) { return a + (b - a) * t; }
         function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
@@ -211,13 +212,11 @@
             const t = clamp((progress - segStart) / (segEnd - segStart), 0, 1);
             const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 
-            // Y: from below (startY vh) to endY %
-            const yVh = lerp(startY, 0, ease);
-            const yOffset = s.endY * ease;
             const x = lerp(-50, s.endX, ease);
+            const y = lerp(startY, s.endY, ease);
             const r = lerp(0, s.endR, ease);
 
-            s.el.style.transform = `translate(${x}%, calc(${yVh}vh + ${yOffset}%)) rotate(${r}deg)`;
+            s.el.style.transform = `translate(${x}%, ${y}%) rotate(${r}deg)`;
             s.el.style.opacity = clamp(ease * 2, 0, 1);
           });
         }
