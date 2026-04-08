@@ -341,6 +341,54 @@ html, body {
   cursor: url('images/mouse_hover.png') 25 25, auto;
 }
 
+/* ── Info4 Section ── */
+#info4 {
+  background: #000;
+  padding-top: 80px;
+}
+
+.info4-top {
+  padding: 50px 100px 50px 100px;
+}
+
+.info4-header {
+  font-family: 'ALTMariaClara', serif;
+  font-weight: 400;
+  font-size: clamp(37px, 5.2vw, 67px);
+  line-height: 1.15;
+  color: #f5e868;
+  margin: 0 0 10px 0;
+  text-transform: lowercase;
+  width: 50%;
+}
+
+.info4-header .indent {
+  padding-left: 1.5em;
+}
+
+.info4-subtitle {
+  font-family: 'ALTMariaClara', serif;
+  font-weight: 300;
+  font-size: clamp(16px, 1.84vw, 23px);
+  color: #f5e868;
+  margin: 0 0 30px 0;
+}
+
+.info4-subtitle .indent {
+  padding-left: 1.5em;
+}
+
+.info4-body-text {
+  font-family: 'Helvetica Neue', 'Frutiger', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: clamp(12px, 1.1vw, 15px);
+  line-height: 1.6;
+  color: #f5e868;
+  margin: 0;
+  width: 40%;
+  margin-left: 60%;
+}
+
 /* ── Sequences Section ── */
 #sequences {
   background: #000;
