@@ -196,9 +196,11 @@
         function update() {
           const rect = container.getBoundingClientRect();
           const wh = window.innerHeight;
-          // progress 0→1 as container scrolls from bottom of viewport to center
-          const rawProgress = (wh - rect.top) / (wh * 0.8);
+          // progress 0→1: starts when container top enters viewport bottom, ends when container is centered
+          const rawProgress = (wh - rect.top) / (rect.height + wh * 0.2);
           const progress = clamp(rawProgress, 0, 1);
+          // Only animate once section is in view
+          if (rect.bottom < 0 || rect.top > wh) return;
 
           stacks.forEach((s, i) => {
             // stagger: each image starts a bit later
