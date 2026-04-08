@@ -394,7 +394,7 @@ html, body {
   height: calc(300vh + 900px);
   position: relative;
   background: #000;
-  padding-top: 300px;
+  padding-top: 600px;
 }
 
 .stack-sticky {
