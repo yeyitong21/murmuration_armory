@@ -391,7 +391,7 @@ html, body {
 
 /* ── Stack Images ── */
 .stack-scroll {
-  height: 300vh;
+  height: calc(300vh + 300px);
   position: relative;
   background: #000;
 }
@@ -414,10 +414,10 @@ html, body {
 
 .stack-img {
   position: absolute;
-  width: 65%;
+  width: 60%;
   height: auto;
   left: 50%;
-  top: 50%;
+  top: 30%;
   transform: translate(-50%, 100vh);
   opacity: 0;
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
