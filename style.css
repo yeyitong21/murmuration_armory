@@ -390,20 +390,23 @@ html, body {
 }
 
 /* ── Stack Images ── */
-.stack-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 80px;
-  padding: 0 0 100px;
-  min-height: 200vh;
+.info4-scroll {
+  height: 300vh;
   position: relative;
 }
 
-.stack-sticky {
+.info4-sticky {
   position: sticky;
-  top: 10vh;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.stack-area {
+  position: relative;
   width: 80%;
+  margin: 80px auto 0;
   aspect-ratio: 4 / 3;
 }
 
@@ -412,8 +415,8 @@ html, body {
   width: 65%;
   height: auto;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, 120%);
+  top: 0;
+  transform: translate(-50%, 100vh);
   opacity: 0;
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
   will-change: transform, opacity;
