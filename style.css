@@ -399,7 +399,7 @@ html, body {
 
 .stack-wrapper {
   position: relative;
-  width: 70%;
+  width: 80%;
   aspect-ratio: 4 / 3;
 }
 
@@ -410,36 +410,13 @@ html, body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  transition: none;
   opacity: 0;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
 }
 
-#stack1 {
-  z-index: 1;
-}
-
-#stack2 {
-  z-index: 2;
-}
-
-#stack3 {
-  z-index: 3;
-}
-
-#stack1.stack-visible {
-  opacity: 1;
-  transform: translate(-65%, -45%) rotate(15deg);
-}
-
-#stack2.stack-visible {
-  opacity: 1;
-  transform: translate(-40%, -55%) rotate(-7deg);
-}
-
-#stack3.stack-visible {
-  opacity: 1;
-  transform: translate(-30%, -40%) rotate(-18deg);
-}
+#stack1 { z-index: 1; }
+#stack2 { z-index: 2; }
+#stack3 { z-index: 3; }
 
 /* ── Sequences Section ── */
 #sequences {

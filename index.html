@@ -177,50 +177,46 @@
     </div>
 
     <script>
-      // Stack images scroll animation
+      // Stack images scroll-driven animation (reversible)
       (function() {
-        const stack1 = document.getElementById('stack1');
-        const stack2 = document.getElementById('stack2');
-        const stack3 = document.getElementById('stack3');
+        const stacks = [
+          { el: document.getElementById('stack1'), endX: -55, endY: -55, endR: 15 },
+          { el: document.getElementById('stack2'), endX: -45, endY: -50, endR: -7 },
+          { el: document.getElementById('stack3'), endX: -50, endY: -45, endR: -18 }
+        ];
         const container = document.querySelector('.stack-container');
         if (!container) return;
 
-        // Set initial position: off-screen below
-        stack1.style.transform = 'translate(-50%, 150%) rotate(0deg)';
-        stack2.style.transform = 'translate(-50%, 150%) rotate(0deg)';
-        stack3.style.transform = 'translate(-50%, 150%) rotate(0deg)';
+        // Start: centered, below container
+        const startX = -50, startY = 150, startR = 0;
 
-        let triggered = [false, false, false];
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
-        function checkScroll() {
+        function update() {
           const rect = container.getBoundingClientRect();
-          const windowH = window.innerHeight;
-          const triggerPoint = windowH * 0.85;
+          const wh = window.innerHeight;
+          // progress 0→1 as container scrolls from bottom of viewport to center
+          const rawProgress = (wh - rect.top) / (wh * 0.8);
+          const progress = clamp(rawProgress, 0, 1);
 
-          if (rect.top < triggerPoint && !triggered[0]) {
-            triggered[0] = true;
-            stack1.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease';
-            stack1.style.opacity = '1';
-            stack1.style.transform = 'translate(-65%, -45%) rotate(15deg)';
-          }
+          stacks.forEach((s, i) => {
+            // stagger: each image starts a bit later
+            const stagger = i * 0.15;
+            const t = clamp((progress - stagger) / (1 - stagger), 0, 1);
+            // ease out cubic
+            const ease = 1 - Math.pow(1 - t, 3);
 
-          if (rect.top < triggerPoint - 80 && !triggered[1]) {
-            triggered[1] = true;
-            stack2.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s, opacity 0.8s ease 0.2s';
-            stack2.style.opacity = '1';
-            stack2.style.transform = 'translate(-40%, -55%) rotate(-7deg)';
-          }
-
-          if (rect.top < triggerPoint - 160 && !triggered[2]) {
-            triggered[2] = true;
-            stack3.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s, opacity 0.8s ease 0.4s';
-            stack3.style.opacity = '1';
-            stack3.style.transform = 'translate(-30%, -40%) rotate(-18deg)';
-          }
+            const x = lerp(startX, s.endX, ease);
+            const y = lerp(startY, s.endY, ease);
+            const r = lerp(startR, s.endR, ease);
+            s.el.style.transform = `translate(${x}%, ${y}%) rotate(${r}deg)`;
+            s.el.style.opacity = clamp(t * 2, 0, 1);
+          });
         }
 
-        window.addEventListener('scroll', checkScroll);
-        checkScroll();
+        window.addEventListener('scroll', update);
+        update();
       })();
 
       // Hover: each trigger activates its own rest-group, deactivates the other
