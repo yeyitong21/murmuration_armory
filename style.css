@@ -404,7 +404,7 @@ html, body {
 
 /* ── Stack Images ── */
 .stack-scroll {
-  height: 400vh;
+  height: 500vh;
   position: relative;
   background: #000;
   padding-top: 80px;
@@ -417,7 +417,6 @@ html, body {
   display: flex;
   flex-direction: column;
   background: #000;
-  overflow: hidden;
 }
 
 .stack-area {
