@@ -63,6 +63,16 @@ html, body {
   50% { opacity: 0; }
 }
 
+/* ── Site Logo ── */
+#site-logo {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  height: 40px;
+  width: auto;
+  z-index: 15;
+}
+
 /* ── Landing (p5 canvas) ── */
 #landing {
   position: fixed;
