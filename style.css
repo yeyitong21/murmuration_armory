@@ -394,7 +394,7 @@ html, body {
   height: 400vh;
   position: relative;
   background: #000;
-  margin-top: 80px;
+  padding-top: 80px;
 }
 
 .stack-sticky {
@@ -411,7 +411,7 @@ html, body {
   position: relative;
   flex: 1;
   width: 70%;
-  margin: 30px auto 0;
+  margin: -40px auto 0;
 }
 
 .stack-img {
