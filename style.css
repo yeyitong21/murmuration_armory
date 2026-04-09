@@ -159,6 +159,12 @@ html, body {
   margin-left: 0.5em;
 }
 
+.about-body-text, .info2-body-text, .info3-body-text, .info4-body-text {
+  text-wrap: pretty;
+  widows: 2;
+  orphans: 2;
+}
+
 .about-body-text {
   font-family: 'Helvetica Neue', 'Frutiger', 'Arial', sans-serif;
   font-weight: 400;
