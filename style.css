@@ -113,10 +113,17 @@ html, body {
   margin-top: calc(100vh - 10px);
 }
 
-#yellow-bar, #yellow-bar-bottom {
+#yellow-bar {
   width: 100%;
   height: 10px;
   background: #ffee49;
+}
+
+#yellow-bar-bottom {
+  width: 100%;
+  height: 10px;
+  background: #ffee49;
+  margin-top: 150px;
 }
 
 /* ── About Section ── */
