@@ -234,6 +234,23 @@
         update();
       })();
 
+      // Show/hide murmur-input based on scroll position
+      (function() {
+        const input = document.getElementById('murmur-input');
+        function checkInput() {
+          if (window.scrollY < window.innerHeight * 0.8) {
+            input.style.opacity = '1';
+            input.style.pointerEvents = 'auto';
+          } else {
+            input.style.opacity = '0';
+            input.style.pointerEvents = 'none';
+          }
+        }
+        input.style.transition = 'opacity 0.4s ease';
+        window.addEventListener('scroll', checkInput);
+        checkInput();
+      })();
+
       // Hover: each trigger activates its own rest-group, deactivates the other
       document.querySelectorAll('.hover-column').forEach(column => {
         const g1Trigger = column.querySelector('.g1-trigger');
