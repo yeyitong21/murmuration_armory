@@ -350,9 +350,6 @@ function draw() {
   }
 }
 
-function keyPressed() {
-  if (key === "s" || key === "S") saveCanvas("murmuration", "png");
-}
 
 function windowResized() {
   let landing = document.getElementById('landing');
