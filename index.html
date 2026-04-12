@@ -149,7 +149,7 @@
         <h2 class="info3-header" id="info3-header">Sadeck Berrabah</h2>
         <p class="info3-subtitle" id="info3-subtitle">
           <span>transforming murmuration</span><br>
-          <span class="indent">into human choreography</span>
+          <span class="indent" id="info3-indent">into human choreography</span>
         </p>
         <p class="info3-body-text">Sadeck Berrabah is a French choreographer and visual artist known for his distinctive style of large-scale synchronized choreography. Trained in hip-hop and street dance, he developed a unique movement language that emphasizes collective precision, symmetry, and geometric formations. Berrabah gained international recognition through his project Murmuration Concept, in which groups of dancers move together as a unified system, creating flowing visual patterns inspired by the natural phenomenon of bird murmurations. His work merges dance, visual composition, and spatial design, transforming the stage into a living kinetic image where individual bodies contribute to a powerful collective form.</p>
       </div>
@@ -316,6 +316,24 @@
       }
       window.addEventListener('load', alignInfo2);
       window.addEventListener('resize', alignInfo2);
+
+      // Align "into human choreography" indent with left edge of "Berrabah"
+      function alignInfo3() {
+        const header = document.getElementById('info3-header');
+        const indent = document.getElementById('info3-indent');
+        if (!header || !indent) return;
+        const span = document.createElement('span');
+        span.style.visibility = 'hidden';
+        span.style.position = 'absolute';
+        span.style.font = getComputedStyle(header).font;
+        span.textContent = 'Sadeck ';
+        document.body.appendChild(span);
+        const sadeckW = span.offsetWidth;
+        document.body.removeChild(span);
+        indent.style.paddingLeft = sadeckW + 'px';
+      }
+      window.addEventListener('load', alignInfo3);
+      window.addEventListener('resize', alignInfo3);
 
     </script>
 
