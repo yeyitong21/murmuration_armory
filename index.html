@@ -335,22 +335,13 @@
       window.addEventListener('load', alignInfo3);
       window.addEventListener('resize', alignInfo3);
 
-      // Align "by murmuration concept" with "armory" in header
+      // Align "by murmuration concept" with "at" in header
       function alignInfo4() {
         const headerIndent = document.getElementById('info4-header-indent');
         const subtitleIndent = document.getElementById('info4-subtitle-indent');
         if (!headerIndent || !subtitleIndent) return;
-        const headerStyle = getComputedStyle(headerIndent);
-        const headerPadLeft = parseFloat(headerStyle.paddingLeft) || 0;
-        const span = document.createElement('span');
-        span.style.visibility = 'hidden';
-        span.style.position = 'absolute';
-        span.style.font = headerStyle.font;
-        span.textContent = 'at the ';
-        document.body.appendChild(span);
-        const atTheW = span.offsetWidth;
-        document.body.removeChild(span);
-        subtitleIndent.style.paddingLeft = (headerPadLeft + atTheW) + 'px';
+        const headerPadLeft = parseFloat(getComputedStyle(headerIndent).paddingLeft) || 0;
+        subtitleIndent.style.paddingLeft = headerPadLeft + 'px';
       }
       window.addEventListener('load', alignInfo4);
       window.addEventListener('resize', alignInfo4);
