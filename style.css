@@ -370,7 +370,6 @@ html, body {
   font-size: clamp(16px, 1.84vw, 23px);
   color: #f5e868;
   margin: 0 0 30px 0;
-  padding-left: 100px;
 }
 
 .info3-subtitle .indent {
