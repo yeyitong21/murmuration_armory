@@ -130,7 +130,6 @@ html, body {
   position: relative;
   z-index: 1;
   margin-top: calc(100vh - 10px);
-  background: black;
 }
 
 #yellow-bar {
@@ -447,6 +446,11 @@ html, body {
   margin: 0;
   width: 40%;
   margin-left: 60%;
+}
+
+#black-spacer {
+  height: 80px;
+  background: black;
 }
 
 /* ── Stack Images ── */
