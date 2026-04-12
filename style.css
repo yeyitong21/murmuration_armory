@@ -130,6 +130,7 @@ html, body {
   position: relative;
   z-index: 1;
   margin-top: calc(100vh - 10px);
+  background: black;
 }
 
 #yellow-bar {
